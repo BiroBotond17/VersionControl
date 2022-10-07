@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Reflection;
+
 
 namespace WindowsFormsApp1
 {
@@ -14,6 +17,9 @@ namespace WindowsFormsApp1
     {
         RealEstateEntities context = new RealEstateEntities();
         List<Flat> flats;
+        Excel.Application xlApp;
+        Excel.Workbook xlWB;
+        Excel.Workbook xlSheet;
         public Form1()
         {
             InitializeComponent();
@@ -22,5 +28,56 @@ namespace WindowsFormsApp1
         {
             flats = context.Flat.ToList();
         }
+        void CreateExcel()
+        {
+            try
+            {
+                
+                xlApp = new Excel.Application();
+
+                
+                xlWB = xlApp.Workbooks.Add(Missing.Value);
+
+                
+                xlSheet = xlWB.ActiveSheet;
+
+                
+               CreateTable(); 
+
+                
+                xlApp.Visible = true;
+                xlApp.UserControl = true;
+            }
+            catch (Exception ex) 
+            {
+                string errMsg = string.Format("Error: {0}\nLine: {1}", ex.Message, ex.Source);
+                MessageBox.Show(errMsg, "Error");
+
+                
+                xlWB.Close(false, Type.Missing, Type.Missing);
+                xlApp.Quit();
+                xlWB = null;
+                xlApp = null;
+            }
+        }
+        void CreateTable()
+        {
+            string[] headers = new string[] {
+     "Kód",
+     "Eladó",
+     "Oldal",
+     "Kerület",
+     "Lift",
+     "Szobák száma",
+     "Alapterület (m2)",
+     "Ár (mFt)",
+     "Négyzetméter ár (Ft/m2)"};
+            for (int i = 0; i < headers.Length; i++)
+            {
+                xlSheet.Cells
+            }
+        }
+        
     }
+
 }
