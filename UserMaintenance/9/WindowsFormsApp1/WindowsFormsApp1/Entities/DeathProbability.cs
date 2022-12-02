@@ -11,5 +11,6 @@ namespace WindowsFormsApp1.Entities
         public int nem { get; set; }
         public int kor { get; set; }
         public double halalvalsz { get; set; }
+        public object P { get; internal set; }
     }
 }

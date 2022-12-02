@@ -11,5 +11,6 @@ namespace WindowsFormsApp1.Entities
         public int Kor { get; set; }
         public int gyermekek { get; set; }
         public double valsz { get; set; }
+        public object P { get; internal set; }
     }
 }
