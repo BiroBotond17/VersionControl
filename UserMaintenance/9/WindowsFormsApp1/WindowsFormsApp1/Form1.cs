@@ -18,18 +18,28 @@ namespace WindowsFormsApp1
         List<BirthProbability> BirthProbabilities = new List<BirthProbability>();
         List<DeathProbability> DeathProbabilities = new List<DeathProbability>();
         Random rng = new Random(1234);
+        List<Person> nokszama;
+        List<Person> ferfiakszama;
         public Form1()
         {
             InitializeComponent();
             Population = GetPopulation(@"C:\Temp\nép.csv");
             BirthProbabilities = GetBirth(@"C:\Temp\születés.csv");
             DeathProbabilities = GetDeath(@"C:\Temp\halál.csv");
-            for (int year = 2005; year <= 2024; year++)
+            
+            numericUpDown1.Minimum = 2006;
+            numericUpDown1.Minimum = 2800;
+
+        }
+
+        private void Simulation()
+        {
+            for (int year = 2005; year <= numericUpDown1.Value; year++)
             {
                 // Végigmegyünk az összes személyen
                 for (int i = 0; i < Population.Count; i++)
                 {
-                    SimStep(year,Population[i]);
+                    SimStep(year, Population[i]);
                 }
 
                 int nbrOfMales = (from x in Population
@@ -41,7 +51,6 @@ namespace WindowsFormsApp1
                 Console.WriteLine(
                     string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales));
             }
-            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -143,11 +152,34 @@ namespace WindowsFormsApp1
                     Population.Add(újszülött);
                 }
             }
+            for (int i = 2005; i < numericUpDown1.Value; i++)
+            {
+               // string.Format("Év:{0} Fiúk:{1} Lányok:{2}", year, nbrOfMales, nbrOfFemales);
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void start_button_Click(object sender, EventArgs e)
+        {
+            Simulation();
+            
+        }
+
+        private void browes_btn_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog()==DialogResult.OK)
+            {
+                textBox1.Text = @"C:\Temp\nép.csv";
+            }
+        }
+        void DisplayResults()
+        {
+            
         }
     }
 }
