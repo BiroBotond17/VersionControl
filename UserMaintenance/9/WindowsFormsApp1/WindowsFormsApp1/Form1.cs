@@ -26,7 +26,7 @@ namespace WindowsFormsApp1
             DeathProbabilities = GetDeath(@"C:\Temp\halál.csv");
             for (int year = 2005; year <= 2024; year++)
             {
-                // Végigmegyünk az összes személyen
+               
                 for (int i = 0; i < Population.Count; i++)
                 {
                     SimStep(year,Population[i]);
