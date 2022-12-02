@@ -47,6 +47,7 @@ namespace WindowsFormsApp1
             this.start_button.TabIndex = 1;
             this.start_button.Text = "Start";
             this.start_button.UseVisualStyleBackColor = true;
+            this.start_button.Click += new System.EventHandler(this.start_button_Click);
             // 
             // numericUpDown1
             // 
@@ -73,6 +74,7 @@ namespace WindowsFormsApp1
             this.browes_btn.TabIndex = 4;
             this.browes_btn.Text = "Browse";
             this.browes_btn.UseVisualStyleBackColor = true;
+            this.browes_btn.Click += new System.EventHandler(this.browes_btn_Click);
             // 
             // textBox1
             // 
