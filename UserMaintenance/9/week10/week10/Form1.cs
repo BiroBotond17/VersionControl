@@ -15,10 +15,11 @@ namespace week10
     {
         GameController gc = new GameController();
         GameArea ga;
-        int populationSize = 1000;
-        int nbrOfSteps = 50;
+        int populationSize = 100;
+        int nbrOfSteps = 10;
         int nbrOfStepsIncrement = 10;
         int generation = 1;
+        Brain winnerBrain = null;
         public Form1()
         {
             InitializeComponent();
@@ -27,19 +28,19 @@ namespace week10
             //gc.AddPlayer();
             // gc.Start(true);
             gc.GameOver += Gc_GameOver;
-            Brain winnerBreain = null;
+            //Brain winnerBrain = null;
             for (int i = 0; i < populationSize; i++)
             {
                 gc.AddPlayer(nbrOfSteps);
             }
-            gc.Start(true);
+            gc.Start();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
-        private void Gc_GameOver(object sender)
+         void Gc_GameOver(object sender)
         {
             generation++;
             label1.Text = string.Format(
@@ -49,7 +50,6 @@ namespace week10
                              orderby p.GetFitness() descending
                              select p;
             var topPerformers = playerList.Take(populationSize / 2).ToList();
-            gc.ResetCurrentLevel();
             var winners = from p in topPerformers
                           where p.IsWinner
                           select p;
@@ -59,6 +59,8 @@ namespace week10
                 gc.GameOver -= Gc_GameOver;
                 return;
             }
+            gc.ResetCurrentLevel();
+           
             foreach (var p in topPerformers)
             {
                 var b = p.Brain.Clone();
