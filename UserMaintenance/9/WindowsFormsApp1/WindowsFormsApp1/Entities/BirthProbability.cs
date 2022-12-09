@@ -9,8 +9,8 @@ namespace WindowsFormsApp1.Entities
     public class BirthProbability
     {
         public int Kor { get; set; }
-        public int gyermekek { get; set; }
+        public int NbrOfChildren { get; set; }
         public double valsz { get; set; }
-        public object P { get; internal set; }
+        
     }
 }
