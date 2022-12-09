@@ -7,14 +7,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WorldsHardestGame;
 
 namespace week10
 {
     public partial class Form1 : Form
     {
+        GameController gc = new GameController();
+        GameArea ga;
+        int populationSize = 1000;
+        int nbrOfSteps = 50;
+        int nbrOfStepsIncrement = 10;
+        int generation = 1;
         public Form1()
         {
             InitializeComponent();
+            ga = gc.ActivateDisplay();
+            this.Controls.Add(ga);
+            //gc.AddPlayer();
+            // gc.Start(true);
+            gc.GameOver += Gc_GameOver;
+            for (int i = 0; i < populationSize; i++)
+            {
+                gc.AddPlayer(nbrOfSteps);
+            }
+            gc.Start(true);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void Gc_GameOver(object sender)
+        {
+            generation++;
+            label1.Text = string.Format(
+                "{0}. generáció",
+                generation);
         }
     }
 }
